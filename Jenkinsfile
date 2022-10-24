@@ -27,7 +27,7 @@ agent any
                          }
 
 
-                  stage('Testing process') {
+                /*  stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
@@ -51,7 +51,7 @@ agent any
 		    	    sh "mvn clean install"
                  	}
                	 }
-              } 
+              }*/
 		stage("Maven Build") {
             steps {
                 script {
@@ -66,32 +66,17 @@ agent any
                                           sh 'echo "login Docker ...."'
                    	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
                                }  }
-		  stage('Docker push') {
+		/*  stage('Docker push') {
 
                  steps {
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet1'
-                        }  }  
+                        }  } */
          stage('Docker compose') {
 
                           steps {
                                sh 'docker-compose up -d'
                                  }  }
-
-        }
-	post {
-                        success {
-                             mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build successfull",
-                                    body: "Hello Mohamed El Hedi, this is a Jenkins Pipeline alert for launching Cycle"
-                            echo 'successful'
-                        }
-                        failure {
-                             mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build failed",
-                                    body: "failed"
-                            echo 'failed'
-                        }
 
         }
 
