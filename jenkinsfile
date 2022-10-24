@@ -64,7 +64,7 @@ emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log 
     stage('Deploy to k8s'){
             steps{
                 script{
-kubernetesDeploy configs: 'deployment.yml', kubeconfigId: 'k8sconfig' 
+kubernetesDeploy configs: 'kustomization.yaml', kubeconfigId: 'k8sconfig' 
                       }
                  }
                          }
