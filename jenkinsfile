@@ -23,8 +23,8 @@ agent any
             steps {
                 script {
 		sh 'echo "Building jar .... ...."'
+				    sh "mvn clean install"
                     sh "mvn package -DskipTests=true"
-		    sh "mvn clean install"
 
 		    
                 }
