@@ -27,16 +27,16 @@ agent any
                          }
 
 
-                /*stage('Testing process') {
+                  stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
                                 sh 'mvn clean test'
                                }
                               }
-                            }*/
+                            }
 
-              /*stage('Quality Gate Status Check'){
+                stage('Quality Gate Status Check'){
                   steps{
                       script{
 			      withSonarQubeEnv('sonar') {
@@ -51,7 +51,7 @@ agent any
 		    	    sh "mvn clean install"
                  	}
                	 }
-              }*/
+              }
 		stage("Maven Build") {
             steps {
                 script {
@@ -66,12 +66,12 @@ agent any
                                           sh 'echo "login Docker ...."'
                    	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
                                }  }
-		/* stage('Docker push') {
+		  stage('Docker push') {
 
                  steps {
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet1'
-                        }  }*/
+                        }  } 
          stage('Docker compose') {
 
                           steps {
