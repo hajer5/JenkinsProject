@@ -82,7 +82,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>springprojet1</finalName>
+					<finalName>springprojet</finalName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -117,7 +117,7 @@
 			</plugin>
 
 		</plugins>
-		<finalName>springprojet1</finalName>
+		<finalName>springprojet</finalName>
 	</build>
 
 
