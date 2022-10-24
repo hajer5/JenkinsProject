@@ -21,7 +21,7 @@ agent any
 			    stage('Build docker image'){
                              steps{
                                  script{
-                                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
+                                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet1 .'
                                  }
                              }
                          }
@@ -51,7 +51,7 @@ agent any
 		    	    sh "mvn clean install"
                  	}
                	 }
-              }
+              } 
 		stage("Maven Build") {
             steps {
                 script {
@@ -59,48 +59,6 @@ agent any
                 }
             }
         }
-		stage ('Artifact construction') {
-            steps {
-                sh 'echo "Artifact construction is processing ...."'
-                sh 'mvn  package' 
-            }
-		  }
-		
-		
-            stage("Publish to Nexus Repository Manager") {
-            steps {
-                script {
-                    pom = readMavenPom file: "pom.xml";
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                    artifactPath = filesByGlob[0].path;
-                    artifactExists = fileExists artifactPath;
-                    if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-                        nexusArtifactUploader(
-                            nexusVersion: 'nexus3',
-                            protocol: 'http',
-                            nexusUrl: '192.168.33.10:8081',
-                            groupId: 'pom.com.esprit.examen',
-                            version: 'pom.2.0',
-                            repository: 'maven-releases',
-                            credentialsId: 'nexus',
-                            artifacts: [
-                                [artifactId: 'pom.tpAchatProject',
-                                classifier: '',
-                                file: artifactPath,
-                                type: pom.packaging],
-                                [artifactId: 'pom.tpAchatProject',
-                                classifier: '',
-                                file: "pom.xml",
-                                type: "pom"]
-                            ]
-                        );
-                    } else {
-                        error "*** File: ${artifactPath}, could not be found";
-                    }
-                }
-            }
 
 		 		 stage('Docker login') {
 
@@ -108,12 +66,12 @@ agent any
                                           sh 'echo "login Docker ...."'
                    	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
                                }  }
-		 stage('Docker push') {
+		  stage('Docker push') {
 
                  steps {
                       sh 'echo "Docker is pushing ...."'
-                     	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
-                        }  }
+                     	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet1'
+                        }  }  
          stage('Docker compose') {
 
                           steps {
@@ -121,20 +79,5 @@ agent any
                                  }  }
 
         }
-		post {
-                        success {
-                             mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build successfull",
-                                    body: "Hello Mohamed El Hedi, this is a Jenkins Pipeline alert for launching Cycle"
-                            echo 'successful'
-                        }
-                        failure {
-                             mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build failed",
-                                    body: "failed"
-                            echo 'failed'
-                        }
 
-        }
-
-	}}
+      }
