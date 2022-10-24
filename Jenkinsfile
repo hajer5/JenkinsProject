@@ -79,5 +79,20 @@ agent any
                                  }  }
 
         }
+	post {
+                        success {
+                             mail to: "mohamedelhedi.benaissa@esprit.tn",
+                                    subject: "Build successfull",
+                                    body: "Hello Mohamed El Hedi, this is a Jenkins Pipeline alert for launching Cycle"
+                            echo 'successful'
+                        }
+                        failure {
+                             mail to: "mohamedelhedi.benaissa@esprit.tn",
+                                    subject: "Build failed",
+                                    body: "failed"
+                            echo 'failed'
+                        }
+
+        }
 
       }
