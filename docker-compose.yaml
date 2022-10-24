@@ -22,7 +22,7 @@ services:
       - AppNet 
     restart: on-failure     
   angular:
-    image: farahbenmahmoud/front
+    image: amina123/front
     container_name: angular
     ports: 
       - 80:80
