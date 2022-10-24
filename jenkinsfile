@@ -21,7 +21,7 @@ agent any
 			    stage('Build docker image'){
                              steps{
                                  script{
-                                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
+                                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet1 .'
                                  }
                              }
                          }
@@ -45,7 +45,7 @@ agent any
 
                  steps {
                       sh 'echo "Docker is pushing ...."'
-                     	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
+                     	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet1'
                         }  }*/
          stage('Docker compose') {
 
