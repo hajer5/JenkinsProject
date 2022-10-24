@@ -14,7 +14,7 @@ agent any
 
                  stage('Build Maven Spring'){
                              steps{
-                                sh 'mvn clean install '
+                                sh 'mvn -B -DskipTests clean install '
                              }
                          }
 
@@ -27,18 +27,16 @@ agent any
                          }
 
 
-                stage('Testing process') {
+                /*stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
                                 sh 'mvn clean test'
                                }
-
                               }
+                            }*/
 
-                            }
-
-              stage('Quality Gate Status Check'){
+              /*stage('Quality Gate Status Check'){
                   steps{
                       script{
 			      withSonarQubeEnv('sonar') {
@@ -51,10 +49,9 @@ agent any
 				      }
                     		}
 		    	    sh "mvn clean install"
-
                  	}
                	 }
-              }
+              }*/
 		stage("Maven Build") {
             steps {
                 script {
@@ -75,6 +72,11 @@ agent any
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
                         }  }
+         stage('Docker compose') {
+
+                          steps {
+                               sh 'docker-compose up -d'
+                                 }  }
 
         }
 
