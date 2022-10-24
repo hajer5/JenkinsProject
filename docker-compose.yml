@@ -15,7 +15,7 @@ services:
     image: youssefskhiri/springprojet
     container_name: spring
     ports:
-      - 8082:8082
+      - 8089:8089
     depends_on:
       - database
     networks:
