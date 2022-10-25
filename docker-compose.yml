@@ -8,7 +8,7 @@ services:
       - MYSQL_PASSWORD=root
     ports:
       - 3306:3306
-
+    restart: on-faillure
   achatproject:
     image: nourfdhila123/projet
     ports:
