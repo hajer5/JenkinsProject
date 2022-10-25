@@ -12,7 +12,7 @@ services:
      - AppNet
      
   spring-boot:
-    image: amina123/springprojet
+    image: amina112/springprojet
     container_name: spring
     ports:
       - 8082:8082
@@ -22,7 +22,7 @@ services:
       - AppNet 
     restart: on-failure     
   angular:
-    image:  amina123/front
+    image:  amina112/front
     container_name: angular
     ports: 
       - 80:80
