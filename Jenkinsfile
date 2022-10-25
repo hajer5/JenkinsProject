@@ -5,19 +5,19 @@ agent any
      maven 'M2_HOME'
   }
   	  environment {
-
+        
         DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
     }
-
+        
         stages{
-
-
+	
+                         
                  stage('Build Maven Spring'){
                              steps{
-                                sh 'mvn -B -DskipTests clean install '
+                                sh 'mvn clean install '
                              }
                          }
-
+                        
 			    stage('Build docker image'){
                              steps{
                                  script{
@@ -25,33 +25,20 @@ agent any
                                  }
                              }
                          }
+	
 
-
-                /*stage('Testing process') {
+                stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
                                 sh 'mvn clean test'
                                }
-                              }
-                            }*/
 
-              /*stage('Quality Gate Status Check'){
-                  steps{
-                      script{
-			      withSonarQubeEnv('sonar') {
-			      sh "mvn compile sonar:sonar"
-                       	     	}
-			      timeout(time: 1, unit: 'HOURS') {
-			      def qg = waitForQualityGate()
-				      if (qg.status != 'OK') {
-					   error "Pipeline aborted due to quality gate failure: ${qg.status}"
-				      }
-                    		}
-		    	    sh "mvn clean install"
-                 	}
-               	 }
-              }*/
+                              }
+
+                            }
+
+             
 		stage("Maven Build") {
             steps {
                 script {
@@ -59,24 +46,28 @@ agent any
                 }
             }
         }
+			
+          stage('docker compose'){
+                         steps{
+                                script{
+                                 sh 'docker-compose up -d'
+                                 }
+                           }
+                       }
 
+      
 		 		 stage('Docker login') {
-
+    	
                                          steps {
                                           sh 'echo "login Docker ...."'
                    	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
                                }  }
-		/* stage('Docker push') {
-
+		 stage('Docker push') {
+    	
                  steps {
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
-                        }  } */
-         stage('Docker compose') {
-
-                          steps {
-                               sh 'docker-compose up -d'
-                                 }  }
+                        }  }
 
         }
 
