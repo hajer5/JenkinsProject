@@ -46,16 +46,7 @@ agent any
                 }
             }
         }
-			
-          stage('docker compose'){
-                         steps{
-                                script{
-                                 sh 'docker-compose up -d'
-                                 }
-                           }
-                       }
-
-      
+		
 		 		 stage('Docker login') {
     	
                                          steps {
@@ -68,6 +59,16 @@ agent any
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
                         }  }
+			
+          stage('docker compose'){
+                         steps{
+                                script{
+                                 sh 'docker-compose up -d'
+                                 }
+                           }
+                       }
+
+      
 
         }
 
