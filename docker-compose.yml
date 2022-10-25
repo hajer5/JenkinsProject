@@ -8,12 +8,12 @@ services:
       - MYSQL_PASSWORD=root
     ports:
       - 3306:3306
-   
+
   achatproject:
     image: nourfdhila123/projet
     ports:
       - 8089:8089
-    restart:  unless-stopped
+    restart: unless-stopped
     build:
       context: ./
       dockerfile: Dockerfile
