@@ -66,12 +66,12 @@ agent any
                                           sh 'echo "login Docker ...."'
                    	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
                                }  }
-		 stage('Docker push') {
+		/* stage('Docker push') {
 
                  steps {
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
-                        }  }
+                        }  } */
          stage('Docker compose') {
 
                           steps {
